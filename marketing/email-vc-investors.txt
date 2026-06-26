@@ -1,0 +1,72 @@
+Subject: WaterParty — Reinventing Nightlife Discovery for a $150B Global Market
+
+Dear Partner,
+
+I am writing to introduce you to WaterParty, a venture I am building under Water Enterprises / Stellarium Foundation. We are a technology company addressing a fundamental gap in one of the largest yet most fragmented consumer markets in the world: nightlife and social discovery.
+
+The Problem
+
+Today, a young adult planning a night out must juggle between 4–6 different applications: Instagram to find out where people are going, WhatsApp to coordinate with friends, Uber or 99 to get there, Venmo/Pix to split bills or pay cover charges, and sometimes a separate ticketing platform. There is no single, dedicated layer for discovering real-world social experiences. This fragmentation costs consumers time and money, and it costs venues and event organizers billions in lost revenue from inefficient discovery and last-minute cancellations.
+
+The global nightlife and events industry is estimated at over $150 billion annually. Yet it remains one of the few large consumer verticals without a dominant digital platform.
+
+The Solution: WaterParty
+
+WaterParty is a Tinder-style discovery application that unifies the entire party-going journey into one fluid experience:
+
+• Swipe to discover parties, events, and social gatherings nearby
+• RSVP and see which friends are attending
+• Real-time chat with hosts and other attendees
+• Integrated payments through Stripe Connect — tipping, crowdfunding for events, and cover charges, all in-app
+• Automatic currency detection via GPS — seamless cross-border functionality
+• Reputation system for hosts and attendees — building trust in the community
+
+We are not building a feature. We are building the operating system for nightlife.
+
+Traction & Technology
+
+We have a fully functional, production-ready MVP built on modern infrastructure:
+
+• Front-end: React 19 + TypeScript + Vite
+• Back-end: Bun runtime + Turso (edge SQLite)
+• Payments: Stripe Connect (tipping + crowdfunding via Stripe)
+• Real-time: WebSockets for chat and live notifications
+• Cross-platform: iOS + Android via Capacitor
+• GPS-based currency detection working and tested
+• Active deployment with real users
+
+Live application: https://waterparty-react-14hr.onrender.com/
+Company landing page: https://water-enterprises-landing.onrender.com/
+Source code: https://github.com/StellariumFoundation/WaterParty-React
+
+Market Opportunity
+
+We are launching our first market in Recife, Brazil — a city of 4 million people with over 100,000 university students across UFPE, UFRPE, and UNICAP. Recife is the perfect density play: a concentrated urban population with a vibrant nightlife culture and a large young adult demographic.
+
+From Recife, we expand to the 100+ cities across Latin America with similar density profiles, then to the global market. Our GPS-based currency detection makes international expansion technically seamless from day one.
+
+Why Now?
+
+Three macro trends converge in our favor:
+1. Post-pandemic pent-up demand for real-world social experiences is at an all-time high
+2. Gen Z and young Millennials are increasingly rejecting algorithm-driven social media in favor of real-world connection
+3. The creator economy has trained a generation to monetize their passions — WaterParty enables anyone to become a party host and earn through our platform
+
+The Ask
+
+We are currently seeking $250,000–$500,000 in pre-seed funding to:
+- Execute our Recife launch strategy
+- Achieve 5,000 MAU and prove density
+- Build our venue partnerships team
+- Enhance the product with AI-powered recommendations
+
+We are also open to strategic partnerships, accelerator programs, and media-for-equity arrangements.
+
+I would welcome the opportunity to present our full vision, financial projections, and product roadmap in a call at your earliest convenience. Our detailed pitch deck is attached to this email.
+
+Warm regards,
+
+John Victor
+Founder & CEO, Water Enterprises / Stellarium Foundation
+water.enterprises.org@gmail.com
+https://water-enterprises-landing.onrender.com/

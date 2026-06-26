@@ -1,0 +1,67 @@
+Subject: WaterParty — Social Discovery App | Water Enterprises & Stellarium Foundation
+
+Dear Partner,
+
+I am writing to introduce you to a technology ecosystem that I believe represents a significant opportunity for innovation, social impact, and market growth in Latin America's nightlife and social discovery sector.
+
+Water Enterprises / Stellarium Foundation
+
+Water Enterprises is the technology holding company behind WaterParty and other ecosystem projects, operating under the Stellarium Foundation — a organization dedicated to building open-source technology for real-world social connection and community empowerment.
+
+Our mission is simple: build technology that brings people together in the physical world, starting with the $150 billion global nightlife industry.
+
+The Product: WaterParty
+
+WaterParty is a Tinder-style social discovery application that unifies the entire party-going journey:
+• Swipe to discover parties, events, and gatherings nearby
+• RSVP and see which friends are attending
+• Real-time chat with hosts and attendees
+• Integrated payments — tipping, crowdfunding, and cover charges via Stripe Connect
+• Automatic currency detection via GPS for cross-border functionality
+• Reputation system for hosts and attendees
+
+Technology Stack (fully functional MVP):
+• Front-end: React 19 + TypeScript + Vite
+• Back-end: Bun runtime + Turso (edge SQLite)
+• Payments: Stripe Connect
+• Real-time: WebSockets
+• Cross-platform: iOS + Android (Capacitor)
+• GPS-based currency detection
+
+Our Ecosystem
+
+Water Enterprises is building a portfolio of interconnected social technologies:
+1. WaterParty — Social discovery for nightlife events
+2. Water AI — AI-powered recommendation engine for social experiences
+3. Stellarium Foundation — Open-source technology for community building
+
+Key Links:
+• WaterParty App (live): https://waterparty-react-14hr.onrender.com/
+• Water Enterprises Landing: https://water-enterprises-landing.onrender.com/
+• GitHub Repository: https://github.com/StellariumFoundation/WaterParty-React
+• Stellarium Foundation: https://github.com/StellariumFoundation
+
+Market Opportunity
+
+We are launching in Recife, Brazil — a city of 4 million people with over 100,000 university students. From Recife, we expand to 100+ cities across Latin America with similar density profiles. Our GPS-based currency detection makes international expansion seamless from day one.
+
+Why Partner With Us?
+
+• Investment: Pre-seed round ($250K–$500K) for a platform addressing a $150B market
+• Sponsorship: Direct access to the 18–35 demographic at the moment of nightlife decision-making
+• Media for Equity: Exchange promotion and visibility for equity in a high-growth venture
+• Technology Partnership: API integrations for payments, delivery, and transportation
+• University Partnership: Campus ambassador programs and innovation collaboration
+• Press Coverage: A compelling story — Brazilian startup building the operating system for nightlife
+
+Our detailed pitch deck is attached to this email.
+
+I would welcome the opportunity to present our full vision in a call at your earliest convenience.
+
+Warm regards,
+
+John Victor
+Founder, Water Enterprises / Stellarium Foundation
+water.enterprises.org@gmail.com
+https://water-enterprises-landing.onrender.com/
+https://github.com/StellariumFoundation/WaterParty-React

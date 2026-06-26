@@ -1,0 +1,61 @@
+Assunto: WaterParty — Parceria Estratégica para Alcance do Público Noturno Jovem
+
+Prezados,
+
+Meu nome é John Victor, fundador da Water Enterprises e criador do WaterParty. Escrevo para apresentar uma oportunidade de parceria estratégica entre o WaterParty e [marca] para alcançar o público jovem brasileiro de alta renda no momento em que ele está mais engajado: a vida noturna.
+
+Sobre o WaterParty
+
+O WaterParty é o primeiro aplicativo de descoberta social de festas e eventos do Brasil — pense em um Tinder para a vida noturna. Nosso aplicativo permite que jovens adultos descubram festas próximas, confirmem presença, vejam quais amigos estão indo, conversem com anfitriões e paguem por coberturas, gorjetas e crowdfunding de eventos, tudo em uma única plataforma.
+
+Estamos resolvendo um problema real: hoje, um jovem precisa usar 4 a 6 aplicativos diferentes (Instagram, WhatsApp, Uber, PicPay, Sympla) para planejar uma única noite. O WaterParty unifica toda essa jornada.
+
+Tecnologia e Tração
+
+• React 19 + TypeScript + Vite (front-end)
+• Bun + Turso SQLite edge (back-end)
+• Stripe Connect (pagamentos integrados)
+• WebSockets em tempo real (chat e notificações)
+• Detecção automática de moeda via GPS
+• iOS e Android (Capacitor)
+• MVP funcional em produção
+
+Links:
+App: https://waterparty-react-14hr.onrender.com/
+Landing Page: https://water-enterprises-landing.onrender.com/
+GitHub: https://github.com/StellariumFoundation/WaterParty-React
+
+Oportunidade de Patrocínio
+
+O WaterParty oferece à [marca] acesso direto a um público de 18 a 35 anos com alto poder de consumo noturno. Diferente de mídias tradicionais (TV, outdoor, Instagram ads), estamos presentes no exato momento da decisão de consumo noturno — quando o usuário está escolhendo para onde ir, com quem e como pagar.
+
+Modelos de Parceria:
+
+1. Patrocínio de Eventos: Sua marca patrocina festas listadas no app, com branding na tela de descoberta, notificações push patrocinadas e integração de produto (ex: "Cobertura patrocinada por [marca]")
+
+2. Media for Equity: Troca de mídia e ativações por participação acionária na Water Enterprises — ideal para marcas que querem exposição contínua sem desembolso imediato
+
+3. Integração de Produto: Seu produto integrado ao fluxo do app — por exemplo, drinks ou cerveja como add-on ao RSVP do evento
+
+4. Dados e Insights: Acesso anônimo a dados de comportamento noturno do público jovem (tendencias, horários de pico, bairros mais frequentados)
+
+5. Ativações em Recife: Patrocínio do lançamento oficial em Recife (Julho/Agosto 2026) — ativações em bairros como Recife Antigo, Boa Viagem e Casa Forte
+
+Por que [marca]?
+
+O Brasil é o maior mercado de vida noturna da América Latina. Recife, com 4 milhões de habitantes e mais de 100 mil universitários, é o mercado perfeito para lançamento. A [marca] pode ser a marca exclusiva de [categoria de produto] no app desde o primeiro dia.
+
+Investimento
+
+Estamos abertos a negociações que variam de R$ 5.000/mês (patrocínio local) a R$ 50.000/mês (exclusividade nacional) ou modelos de participação acionária para parcerias de longo prazo.
+
+Nosso pitch deck completo está anexado a este email com detalhes de audiência, projeções e cases de ativação.
+
+Gostaria muito de agendar uma conversa rápida para apresentar a visão completa e explorar como podemos construir algo juntos.
+
+Atenciosamente,
+
+John Victor
+Fundador, Water Enterprises / WaterParty
+water.enterprises.org@gmail.com
+https://water-enterprises-landing.onrender.com/

@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: Water Party
+    runtime: node          # or python, go, etc. – adjust to your stack
+    buildCommand: bun install && bun run build
+    startCommand: bun run start
+    envVars:
+      - fromGroup: Water Party Environment
+      - key: NODE_ENV
+        value: production

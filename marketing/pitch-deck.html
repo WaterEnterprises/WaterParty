@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaterParty — Pitch Deck</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #fff; }
+
+  .slide {
+    width: 1024px; height: 576px;
+    position: relative; overflow: hidden;
+    page-break-after: always;
+    display: flex; flex-direction: column;
+    justify-content: center; padding: 60px 80px;
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 30%, #0d1b2a 60%, #0a0a0f 100%);
+  }
+
+  /* Water overlay */
+  .slide::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(0,150,255,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 80%, rgba(0,200,255,0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .watermark {
+    position: absolute; bottom: 20px; right: 30px;
+    font-size: 11px; color: rgba(255,255,255,0.15);
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+
+  .tag { 
+    display: inline-block; padding: 4px 12px;
+    background: rgba(0,150,255,0.15); border: 1px solid rgba(0,150,255,0.3);
+    border-radius: 20px; font-size: 11px; color: #4af; 
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px;
+  }
+
+  h1 { font-size: 52px; font-weight: 900; line-height: 1.1; margin-bottom: 16px; background: linear-gradient(135deg, #fff 0%, #4af 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  h2 { font-size: 36px; font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+  h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; color: #4af; }
+  h4 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #8cf; }
+  p { font-size: 16px; line-height: 1.6; color: #b0b8c8; margin-bottom: 12px; }
+  .subtitle { font-size: 20px; font-weight: 300; color: #8af; margin-bottom: 24px; }
+
+  .grid { display: grid; gap: 16px; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+  .card { 
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; padding: 20px;
+  }
+  .card h4 { font-size: 14px; margin-bottom: 6px; }
+  .card p { font-size: 13px; margin-bottom: 0; }
+
+  .metric { text-align: center; }
+  .metric .num { font-size: 38px; font-weight: 900; background: linear-gradient(135deg, #4af, #0cf); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .metric .label { font-size: 12px; color: #8898a8; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+  .pill-green { background: rgba(0,200,100,0.15); color: #0c6; }
+  .pill-yellow { background: rgba(255,200,0,0.15); color: #fc0; }
+  .pill-blue { background: rgba(0,150,255,0.15); color: #4af; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.1); color: #8af; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); color: #b0b8c8; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .ask-box {
+    background: linear-gradient(135deg, rgba(0,100,200,0.15), rgba(0,200,255,0.08));
+    border: 1px solid rgba(0,150,255,0.3);
+    border-radius: 16px; padding: 30px; text-align: center; margin: 20px 0;
+  }
+  .ask-box .amount { font-size: 44px; font-weight: 900; background: linear-gradient(135deg, #4af, #0cf); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .ask-box .round-type { font-size: 14px; color: #8af; text-transform: uppercase; letter-spacing: 2px; }
+
+  .footer-note { position: absolute; bottom: 60px; right: 80px; font-size: 13px; color: rgba(255,255,255,0.2); }
+
+  /* Specific slide overrides */
+  .slide-title { text-align: center; }
+  .slide-title h1 { font-size: 64px; }
+  .slide-title .subtitle { font-size: 22px; }
+
+  .feature-icon { font-size: 28px; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide slide-title">
+  <div style="position:relative; z-index:1;">
+    <div class="tag">Water Enterprises — Stellarium Foundation</div>
+    <h1>WaterParty</h1>
+    <div class="subtitle">Swipe into the party. Meet people. Have fun.</div>
+    <p style="font-size:18px; color:#6af; margin-top:20px;">The Tinder for parties — real-time social discovery,<br>integrated payments, and global currency support</p>
+    <div style="margin-top:40px; font-size:13px; color:#667;">
+      water.enterprises.org@gmail.com &nbsp;·&nbsp; waterparty.app
+    </div>
+  </div>
+  <div class="watermark">Water Enterprises — Stellarium Foundation</div>
+</div>
+
+<!-- Slide 2: Problem -->
+<div class="slide">
+  <div style="position:relative; z-index:1;">
+    <div class="tag">The Problem</div>
+    <h2>Finding real-world social events is broken</h2>
+    <div class="grid grid-3" style="margin-top:30px;">
+      <div class="card" style="text-align:center;">
+        <div style="font-size:40px; margin-bottom:10px;">🗺️</div>
+        <h4>Cluttered</h4>
+        <p>Facebook Events is buried in noise, irrelevant suggestions, and ads</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:40px; margin-bottom:10px;">📋</div>
+        <h4>Rigid</h4>
+        <p>Meetup requires advance RSVPs — no spontaneity</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:40px; margin-bottom:10px;">💸</div>
+        <h4>Disconnected</h4>
+        <p>No app combines discovery + chat + payments in one flow</p>
+      </div>
+    </div>
+    <p style="margin-top:20px; font-size:14px; color:#667; text-align:center;">
+      Users jump between Instagram → WhatsApp → Venmo → Uber to plan one night out
+    </p>
+  </div>
+  <div class="watermark">Water Enterprises — Stellarium Foundation</div>
+</div>
+
+<!-- Slide 3: Solution -->
+<div class="slide">
+  <div style="position:relative; z-index:1;">
+    <div class="tag">The Solution</div>
+    <h2>WaterParty — one app for the entire party journey</h2>
+    <div class="grid grid-4" style="margin-top:30px;">
+      <div class="card" style="text-align:center;">
+        <div style="font-size:36px; margin-bottom:8px;">🃏</div>
+        <h4>Swipe</h4>
+        <p>Tinder-style discovery of nearby parties</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:36px; margin-bottom:8px;">✅</div>
+        <h4>RSVP</h4>
+        <p>Instantly join with one tap</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:36px; margin-bottom:8px;">💬</div>
+        <h4>Chat</h4>
+        <p>Real-time party chat rooms</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:36px; margin-bottom:8px;">🎉</div>
+        <h4>Participate</h4>
+        <p>Send tips, fund events, earn trust</p>
+      </div>
+    </div>
+    <p style="margin-top:20px; font-size:14px; color:#8af; text-align:center;">
+      ⚡ Real-time via WebSockets · 🌍 Auto-currency from GPS · 💳 Stripe-powered payments
+    </p>
+  </div>
+  <div class="watermark">Water Enterprises — Stellarium Foundation</div>
+</div>
+
+<!-- Slide 4: How It Works -->
+<div class="slide">
+  <div style="position:relative; z-index:1;">
+    <div class="tag">How It Works</div>
+    <h2>Swipe. Party. Repeat.</h2>
+    <div class="grid grid-3" style="margin-top:24px;">
+      <div class="card">
+        <h4 style="color:#4af;">🎉 For Party-Goers</h4>
+        <p style="font-size:13px;">• Swipe through nearby parties<br>• RSVP instantly<br>• See who's attending<br>• Rate your experience</p>
+      </div>
+      <div class="card">
+        <h4 style="color:#0cf;">🎪 For Hosts</h4>
+        <p style="font-size:13px;">• Create a party in 60 seconds<br>• Set capacity, time, location<br>• Track RSVPs and attendees<br>• Build hosting reputation</p>
+      </div>
+      <div class="card">
+        <h4 style="color:#6c0;">🤝 For Everyone</h4>
+        <p style="font-size:13px;">• Chat in real-time<br>• Send tips<br>• Contribute to crowdfunds<br>• Earn trust scores</p>
+      </div>
+    </div>
+    <p style="margin-top:16px; font-size:13px; color:#667; text-align:center;">All connected — tipping, crowdfunding, profiles, and chat in a single ecosystem</p>
+  </div>
+  <div class="watermark">Water Enterprises — Stellarium Foundation</div>
+</div>
+
+<!-- Slide 5: Features -->
+<div class="slide">
+  <div style="position:relative; z-index:1;">
+    <div class="tag">Product Features</div>
+    <h2>Everything you need for a great night out</h2>
+    <div class="grid grid-4" style="margin-top:20px;">
+      <div class="card"><div class="feature-icon">🃏</div><h4>Swipe Discovery</h4><p>Tinder-style cards with party photos, location, crowd size</p></div>
+      <div class="card"><div class="feature-icon">💬</div><h4>Party Chat</h4><p>Per-event chat rooms — know who's going before you arrive</p></div>
+      <div class="card"><div class="feature-icon">💸</div><h4>Tipping</h4><p>Send money to hosts or attendees via Stripe</p></div>
+      <div class="card"><div class="feature-icon">🎯</div><h4>Crowdfunding</h4><p>Pool money for a party — hit the goal, the party happens</p></div>
+      <div class="card"><div class="feature-icon">🌍</div><h4>Auto-Currency</h4><p>GPS detects your location → auto-switches to local currency</p></div>
+      <div class="card"><div class="feature-icon">👤</div><h4>Rich Profiles</h4><p>Social links, photos, trust scores, hosting history</p></div>
+      <div class="card"><div class="feature-icon">🔔</div><h4>Push Notifications</h4><p>Real-time alerts for new parties, messages, followers</p></div>
+      <div class="card"><div class="feature-icon">📱</div><h4>Cross-Platform</h4><p>iOS + Android from a single React codebase</p></div>
+    </div>
+  </div>
+  <div class="watermark">Water Enterprises — Stellarium Foundation</div>
+</div>
+
+<!-- Slide 6: Market -->
+<div class="slide">
+  <div style="position:relative; z-index:1;">
+    <div class="tag">Market Opportunity</div>
+    <h2>A massive, underserved market</h2>
+    <div class="grid grid-3" style="margin-top:24px;">
+      <div class="metric"><div class="num">$150B+</div><div class="label">TAM — Global nightlife & events</div></div>
+      <div class="metric"><div class="num">$15B</div><div class="label">SAM — Social discovery apps</div></div>
+      <div class="metric"><div class="num">$500M</div><div class="label">SOM — Reachable in 5 years</div></div>
+    </div>
+    <div class="grid grid-2" style="margin-top:20px;">
+      <div class="card">
+        <h4>2B+</h4>
+        <p>Global 18–35 demographic</p>
+      </div>
+      <div class="card">
+        <h4>$50–$150</h4>
+        <p>Average spend per night out</p>
+      </div>
+    </div>
+    <p style="margin-top:16px; font-size:13px; color:#667; text-align:center;">No dominant app in the "spontaneous social discovery" category</p>
+  </div>
+  <div class="watermark">Water Enterprises — Stellarium Foundation</div>
+</div>
+
+<!-- Slide 7: Business Model -->
+<div class="slide">
+  <div style="position:relative; z-index:1;">
+    <div class="tag">Business Model</div>
+    <h2>Multiple revenue streams, growing with scale</h2>
+    <table style="margin-top:20px;">
+      <tr><th>Stream</th><th>Take Rate</th><th>Status</th></tr>
+      <tr><td>💸 Tip processing fee</td><td>5% per transaction</td><td><span class="pill pill-green">✅ Live</span></td></tr>
+      <tr><td>🎯 Crowdfunding platform fee</td><td>5% per campaign</td><td><span class="pill pill-green">✅ Live</span></td></tr>
+      <tr><td>📢 AdMob advertising</td><td>CPM-based</td><td><span class="pill pill-green">✅ Live</span></td></tr>
+      <tr><td>⭐ Promoted parties</td><td>CPM queue placement</td><td><span class="pill pill-yellow">🔜 Q2 2026</span></td></tr>
+      <tr><td>👑 Power Host subscription</td><td>$9.99/mo</td><td><span class="pill pill-yellow">🔜 Q3 2026</span></td></tr>
+    </table>
+    <p style="margin-top:16px; font-size:14px; color:#8af;">At 500K MAU: projected annual revenue of $1M+ (base case)</p>
+  </div>
+  <div class="watermark">Water Enterprises — Stellarium Foundation</div>
+</div>
+
+<!-- Slide 8: Traction -->
+<div class="slide">
+  <div style="position:relative; z-index:1;">
+    <div class="tag">Traction & Milestones</div>
+    <h2>Built. Shipped. Working.</h2>
+    <div class="grid grid-3" style="margin-top:24px;">
+      <div class="card">
+        <div style="font-size:24px; margin-bottom:8px;">✅</div>
+        <h4>Production-ready MVP</h4>
+        <p>Swipe, chat, create, tip, crowdfund — all working</p>
+      </div>
+      <div class="card">
+        <div style="font-size:24px; margin-bottom:8px;">✅</div>
+        <h4>Cross-platform CI</h4>
+        <p>iOS + Android builds via GitHub Actions</p>
+      </div>
+      <div class="card">
+        <div style="font-size:24px; margin-bottom:8px;">✅</div>
+        <h4>Stripe integrated</h4>
+        <p>Connect + Payment Intents end-to-end</p>
+      </div>
+      <div class="card">
+        <div style="font-size:24px; margin-bottom:8px;">✅</div>
+        <h4>Multi-currency engine</h4>
+        <p>GPS-powered, server-validated, DB-backed</p>
+      </div>
+      <div class="card">
+        <div style="font-size:24px; margin-bottom:8px;">✅</div>
+        <h4>WebSocket real-time</h4>
+        <p>Chat, feed, live updates</p>
+      </div>
+      <div class="card">
+        <div style="font-size:24px; margin-bottom:8px;">✅</div>
+        <h4>Edge database</h4>
+        <p>Turso (libSQL) — global low-latency reads</p>
+      </div>
+    </div>
+  </div>
+  <div class="watermark">Water Enterprises — Stellarium Foundation</div>
+</div>
+
+<!-- Slide 9: Technology -->
+<div class="slide">
+  <div style="position:relative; z-index:1;">
+    <div class="tag">Technology</div>
+    <h2>Modern stack, built for scale</h2>
+    <div class="grid grid-3" style="margin-top:20px;">
+      <div class="card"><h4 style="color:#4af;">Runtime & Frontend</h4><p>React 19 · TypeScript · Tailwind CSS v4 · Motion</p></div>
+      <div class="card"><h4 style="color:#4af;">Backend & Data</h4><p>Hono 4 (Bun-native) · Turso (libSQL) · WebSocket · Session auth</p></div>
+      <div class="card"><h4 style="color:#4af;">Infrastructure</h4><p>Capacitor 8 (iOS + Android) · GitHub Actions · Stripe · AdMob</p></div>
+    </div>
+    <p style="margin-top:16px; font-size:14px; color:#8af;">Single React codebase powers both iOS and Android. Edge database for speed.</p>
+  </div>
+  <div class="watermark">Water Enterprises — Stellarium Foundation</div>
+</div>
+
+<!-- Slide 10: Competition -->
+<div class="slide">
+  <div style="position:relative; z-index:1;">
+    <div class="tag">Competitive Landscape</div>
+    <h2>A category with no clear leader</h2>
+    <table style="margin-top:16px;">
+      <tr><th>Feature</th><th>WaterParty</th><th>FB Events</th><th>Meetup</th><th>Bumble BFF</th><th>Partiful</th></tr>
+      <tr><td>Swipe discovery</td><td style="color:#0c6;">✅</td><td style="color:#666;">❌</td><td style="color:#666;">❌</td><td style="color:#0c6;">✅</td><td style="color:#666;">❌</td></tr>
+      <tr><td>Party creation</td><td style="color:#0c6;">✅</td><td style="color:#0c6;">✅</td><td style="color:#0c6;">✅</td><td style="color:#666;">❌</td><td style="color:#0c6;">✅</td></tr>
+      <tr><td>In-app chat</td><td style="color:#0c6;">✅</td><td style="color:#0c6;">✅</td><td style="color:#0c6;">✅</td><td style="color:#0c6;">✅</td><td style="color:#666;">❌</td></tr>
+      <tr><td>In-app payments</td><td style="color:#0c6;">✅</td><td style="color:#666;">❌</td><td style="color:#666;">❌</td><td style="color:#666;">❌</td><td style="color:#666;">❌</td></tr>
+      <tr><td>Auto-currency</td><td style="color:#0c6;">✅</td><td style="color:#666;">❌</td><td style="color:#666;">❌</td><td style="color:#666;">❌</td><td style="color:#666;">❌</td></tr>
+      <tr><td>Cross-platform</td><td style="color:#0c6;">✅</td><td style="color:#0c6;">✅</td><td style="color:#0c6;">✅</td><td style="color:#0c6;">✅</td><td style="color:#fc0;">Web</td></tr>
+    </table>
+    <p style="margin-top:12px; font-size:13px; color:#667; text-align:center;">No competitor combines discovery + social + payments + global currency in a single app</p>
+  </div>
+  <div class="watermark">Water Enterprises — Stellarium Foundation</div>
+</div>
+
+<!-- Slide 11: Ask -->
+<div class="slide">
+  <div style="position:relative; z-index:1; text-align:center;">
+    <div class="tag" style="margin:0 auto 16px;">The Ask</div>
+    <h2>Join us in building the future of social discovery</h2>
+    <div class="ask-box" style="max-width:500px; margin:24px auto;">
+      <div class="amount">$250K–$500K</div>
+      <div class="round-type">Pre-Seed Round</div>
+    </div>
+    <div class="grid grid-5" style="margin-top:16px; font-size:13px; grid-template-columns:1fr 1fr 1fr 1fr 1fr;">
+      <div><div style="font-weight:700; color:#4af;">40%</div><div style="color:#889;">Acquisition</div></div>
+      <div><div style="font-weight:700; color:#4af;">30%</div><div style="color:#889;">Product</div></div>
+      <div><div style="font-weight:700; color:#4af;">15%</div><div style="color:#889;">Operations</div></div>
+      <div><div style="font-weight:700; color:#4af;">10%</div><div style="color:#889;">Marketing</div></div>
+      <div><div style="font-weight:700; color:#4af;">5%</div><div style="color:#889;">Legal</div></div>
+    </div>
+    <p style="margin-top:20px; font-size:14px; color:#8af;">25K MAU in 12 months · Breakeven in 24 months · $1M+ ARR by year 3</p>
+  </div>
+  <div class="watermark">Water Enterprises — Stellarium Foundation</div>
+</div>
+
+<!-- Slide 12: Closing -->
+<div class="slide slide-title">
+  <div style="position:relative; z-index:1;">
+    <div class="tag">Let's Build Together</div>
+    <h1 style="font-size:48px;">Swipe into the party.<br>Meet people. Have fun.</h1>
+    <p style="font-size:18px; color:#8af; margin-top:20px;">water.enterprises.org@gmail.com</p>
+    <p style="font-size:14px; color:#667; margin-top:8px;">waterparty.app · App Store · Google Play</p>
+    <div style="margin-top:40px; font-size:12px; color:#445; text-transform:uppercase; letter-spacing:2px;">
+      A product of Water Enterprises — Stellarium Foundation
+    </div>
+  </div>
+  <div class="watermark">Water Enterprises — Stellarium Foundation</div>
+</div>
+
+</body>
+</html>

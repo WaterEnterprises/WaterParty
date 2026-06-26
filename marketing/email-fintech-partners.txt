@@ -1,0 +1,55 @@
+Assunto: WaterParty — Proposta de Parceria Estratégica: Pagamentos Sociais
+
+Prezados,
+
+Meu nome é John Victor, fundador da Water Enterprises. Estamos construindo o WaterParty, uma plataforma de descoberta social de festas e eventos com pagamentos integrados, e acredito que existe uma oportunidade de parceria estratégica significativa entre nossas empresas.
+
+O WaterParty em Poucas Palavras
+
+Somos um aplicativo que unifica a jornada completa da vida noturna: descoberta de eventos → confirmação de presença → chat com anfitriões → pagamento. Pense em um Tinder para festas, com Stripe Connect integrado para gorjetas, crowdfunding de eventos e coberturas.
+
+Funcional: https://waterparty-react-14hr.onrender.com/
+Landing Page: https://water-enterprises-landing.onrender.com/
+GitHub: https://github.com/StellariumFoundation/WaterParty-React
+
+Oportunidade de Parceria em Pagamentos
+
+O WaterParty processará três tipos de transações:
+
+1. Gorjetas (Tipping): Usuários podem enviar gorjetas para anfitriões de festas, DJs e bartenders diretamente pelo app
+2. Crowdfunding de Eventos: Organizadores podem arrecadar fundos para eventos, com recompensas para apoiadores
+3. Coberturas (Cover): Pagamento de entrada em festas diretamente pelo app, sem dinheiro físico
+
+Em cada uma dessas transações, precisamos de um parceiro de pagamentos confiável, com presença brasileira e taxas competitivas.
+
+Modelos de Parceria Propostos:
+
+1. Revenue Share: [Sua empresa] processa os pagamentos com split de taxa de processamento
+2. Co-branded: Funcionalidade "Pagar com [sua marca]" dentro do fluxo do app
+3. Integração via API: Sua plataforma como opção primária de pagamento (Pix, cartão, carteira digital)
+4. Dados Transacionais: Compartilhamento anônimo de dados de comportamento de consumo noturno
+
+Por que Agora?
+
+Estamos nos preparando para lançar em Recife (4M habitantes, 100K+ universitários) em Julho/Agosto de 2026. Ter um parceiro de pagamentos definido antes do lançamento nos permite construir a integração nativa desde o primeiro dia — e garante ao parceiro posicionamento exclusivo como método de pagamento oficial do WaterParty.
+
+Nosso diferencial técnico:
+- Detecção automática de moeda via GPS (funcional para expansão internacional)
+- Stripe Connect como espinha dorsal de pagamentos
+- Suporte a múltiplos métodos de pagamento via camada de abstração
+- WebSockets para notificações de transação em tempo real
+
+Volume Projetado
+
+Considerando o mercado de Recife (4M pessoas) e nossa meta de 5.000 MAU no primeiro trimestre, projetamos processar aproximadamente R$ 200K–500K em transações mensais no primeiro ano, crescendo para R$ 2M–5M mensais conforme expandimos para outras capitais brasileiras.
+
+Convite para Conversa
+
+Gostaria de agendar uma call de 20 minutos para apresentar o produto em detalhes e explorar como podemos estruturar uma parceria. Nosso pitch deck completo está anexado.
+
+Atenciosamente,
+
+John Victor
+Fundador, Water Enterprises / WaterParty
+water.enterprises.org@gmail.com
+https://water-enterprises-landing.onrender.com/

@@ -1,0 +1,126 @@
+Subject: WaterParty — Proposta de Parceria: Equity, Patrocínio & Cocriação 🚀
+
+Olá! 👋
+
+Meu nome é John Victor, founder da Water Enterprises / Stellarium Foundation, e estou escrevendo para apresentar uma oportunidade única de parceria entre você/sua agência e o WaterParty — um aplicativo de descoberta social de festas e eventos que está prestes a revolucionar a vida noturna no Brasil.
+
+📱 **O que é o WaterParty?**
+
+Imagine um Tinder, mas para festas. Você abre o app, desliza para encontrar eventos próximos, confirma presença, vê quais amigos vão, conversa com o anfitrião e paga tudo dentro do app — gorjetas, crowdfunding, cover charge. Tudo integrado, tudo em um só lugar.
+
+Tecnologia: React 19 + Bun + Turso + Stripe Connect + GPS currency detection
+Cross-platform: iOS + Android
+Status: MVP funcional em produção
+
+🔗 **Links:**
+• App: https://waterparty-react-14hr.onrender.com/
+• Landing: https://water-enterprises-landing.onrender.com/
+• GitHub: https://github.com/StellariumFoundation/WaterParty-React
+• Fundação: https://github.com/StellariumFoundation
+
+══════════════════════════════
+🤝 MODELOS DE PARCERIA
+══════════════════════════════
+
+Você pode escolher o modelo que fizer mais sentido:
+
+─── OPÇÃO 1: EQUITY PARTNERSHIP (Recomendado!) ───
+
+Entre como sócio(a) do WaterParty com participação acionária.
+
+🔹 Como funciona:
+• Participação acionária na Water Enterprises
+• Você promove o WaterParty para sua base de seguidores
+• Quanto mais usuários você trouxer, mais valiosa sua participação
+• Assento no conselho consultivo de creators
+
+🔹 Por que isso faz sentido:
+• Você não precisa desembolsar dinheiro — sua audiência é o capital
+• WaterParty está no inicio (pré-seed) — maior potencial de valorização
+• Rede social tem network effects: quanto mais usuários, mais valioso
+• Mercado global de vida noturna: US$150B/ano
+
+🎯 Ideal para: Criadores com 5M+ seguidores que querem construir patrimônio
+
+─── OPÇÃO 2: PATROCÍNIO / PUBLI ───
+
+Campanhas tradicionais de marketing de influência.
+
+🔹 Formatos:
+• Posts patrocinados no Instagram/TikTok/YouTube
+• Stories mostrando o app em ação
+• Participação em eventos promovidos pelo WaterParty em Recife
+• Conteúdo de "day in the life" usando o app para descobrir festas
+
+🔹 Valores: Pagamento por campanha (a combinar conforme alcance)
+
+🎯 Ideal para: Criadores que preferem recebimento imediato
+
+─── OPÇÃO 3: COCRIAÇÃO — SEJA UM ANFITRIÃO WATERPARTY ───
+
+Quer ir além? Torne-se um host/anfitrião oficial.
+
+🔹 Como funciona:
+• Você cria e promove seus próprios eventos dentro do WaterParty
+• Recebe por ingressos, gorjetas e crowdfunding via Stripe Connect
+• O app gerencia RSVPs, pagamentos e chat com participantes
+• Você foca no que importa: criar experiências incríveis
+
+🔹 Bônus: Anfitriões top ganham participação nos lucros da plataforma
+
+🎯 Ideal para: Criadores que já organizam ou querem organizar eventos
+
+─── OPÇÃO 4: INVESTIMENTO ANJO ───
+
+Se você prefere uma abordagem mais tradicional de investimento.
+
+🔹 Estamos captando: Pré-seed round de $250K-$500K
+🔹 Ticket mínimo: A partir de $10K
+🔹 Use: Investimento anjo com equity na Water Enterprises
+
+🎯 Ideal para: Criadores com capital para investir em alto crescimento
+
+─── OPÇÃO 5: MEDIA FOR EQUITY ───
+
+Troque posts/promoção por participação na empresa.
+
+🔹 Cada post, story ou menção vira equity
+🔹 Aporte de mídia monitorado e convertido em participação
+🔹 Mesmo modelo usado por Globo Ventures, Play9 e MYND8
+
+🎯 Ideal para: Criadores que querem maximizar exposição sem custo
+
+══════════════════════════════
+📊 POR QUE WATERPARTY?
+══════════════════════════════
+
+1. Público: 18-35 anos — exatamente sua audiência
+2. Engajamento real: Gente saindo de casa, encontrando amigos, gastando em eventos
+3. Network effects: Cada usuário novo torna a rede mais valiosa para todos
+4. Dados: Sabemos onde e quando o público jovem gasta dinheiro
+5. Recife como base: 4M habitantes, 100K+ universitários — density play perfeito
+6. Expansão: 100+ cidades na América Latina com perfis similares
+
+══════════════════════════════
+📎 ANEXO
+══════════════════════════════
+
+Pitch deck completo anexado a este email com detalhes financeiros, roadmap de produto, e projeções de crescimento.
+
+══════════════════════════════
+
+Vamos marcar uma call rápida para eu apresentar a visão completa e alinharmos qual modelo faz mais sentido para você?
+
+Estou à disposição!
+
+Atenciosamente,
+
+John Victor
+Founder, Water Enterprises / Stellarium Foundation
+water.enterprises.org@gmail.com
+
+🔗 Links:
+• App: https://waterparty-react-14hr.onrender.com/
+• Landing: https://water-enterprises-landing.onrender.com/
+• GitHub: https://github.com/StellariumFoundation/WaterParty-React
+• Stellarium Foundation: https://github.com/StellariumFoundation

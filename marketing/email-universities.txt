@@ -1,0 +1,62 @@
+Assunto: WaterParty — Programa de Embaixadores Universitários & Parceria de Inovação
+
+Prezados,
+
+Meu nome é John Victor, fundador da Water Enterprises. Estamos lançando o WaterParty — um aplicativo de descoberta social de festas e eventos — e acredito que existe uma oportunidade única de parceria com [instituição].
+
+Sobre o WaterParty
+
+O WaterParty é um aplicativo que funciona como um Tinder para a vida noturna: usuários descobrem festas e eventos próximos, confirmam presença, veem amigos que estão indo, conversam com anfitriões e pagam coberturas e gorjetas, tudo em uma única plataforma.
+
+Estamos resolvendo um problema real para o público universitário: hoje, um estudante precisa usar Instagram + WhatsApp + Uber/Pix + Sympla para planejar uma única noite. Nós unificamos tudo.
+
+App funcional: https://waterparty-react-14hr.onrender.com/
+Landing Page: https://water-enterprises-landing.onrender.com/
+Código-fonte: https://github.com/StellariumFoundation/WaterParty-React
+
+Por que Universidades?
+
+O WaterParty é naturalmente um produto universitário. Jovens de 18 a 25 anos são nosso público principal — eles saem com mais frequência, têm círculos sociais maiores e são os primeiros a adotar novas plataformas sociais.
+
+Recife tem mais de 100 mil universitários espalhados por instituições como UFPE, UFRPE, UNICAP, FBV e AESO. Este é nosso mercado de lançamento.
+
+Programa de Embaixadores Universitários
+
+Proponho uma parceria em três níveis:
+
+Nível 1 — Embixadores WaterParty:
+- Selecionamos 5 a 10 estudantes da [instituição] como embaixadores pagos (bolsa mensal de R$ 500)
+- Eles promovem o app no campus, organizam eventos e recrutam novos usuários
+- Os embaixadores ganham comissão sobre eventos criados e usuários referidos
+
+Nível 2 — Eventos Universitários:
+- WaterParty patrocina e promove festas universitárias através do app
+- Parceria com Atléticas e Centros Acadêmicos para divulgação
+- Integração com ingressos e lista de convidados digital
+
+Nível 3 — Parceria de Inovação:
+- Colaboração com a agência de inovação da [instituição]
+- Possibilidade de projeto de pesquisa ou extensão sobre economia noturna e tecnologia social
+- Estágios para estudantes de TI, Design e Marketing no WaterParty
+- Potencial parceria para editais FINEP (subvenção econômica) com ICT
+
+O que a [instituição] Ganha:
+
+1. Visibilidade: O WaterParty como plataforma oficial de descoberta de eventos universitários
+2. Empregabilidade: Oportunidades de estágio e trabalho para alunos
+3. Inovação: Parceria em projeto de tecnologia social com impacto real na cidade
+4. Pesquisa: Dados anônimos sobre comportamento noturno juvenil para estudos acadêmicos
+5. Empreendedorismo: Inspiração para alunos que querem criar startups
+
+Próximos Passos
+
+Gostaria de marcar uma conversa para apresentar o projeto em detalhes e alinhar como podemos estruturar essa parceria. Nosso pitch deck completo está anexado.
+
+Estamos lançando em Recife nos próximos meses e adoraríamos contar com a [instituição] como parceira desde o primeiro dia.
+
+Atenciosamente,
+
+John Victor
+Fundador, Water Enterprises / WaterParty
+water.enterprises.org@gmail.com
+https://water-enterprises-landing.onrender.com/

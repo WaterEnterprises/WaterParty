@@ -1,0 +1,183 @@
+name: Mobile CI Build (Capacitor)
+
+on:
+  push:
+    branches: [ main, master ]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  # -- WEB STATIC BUILD --
+  web-build:
+    name: Build Web App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with: { bun-version: 'latest' }
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+      - name: Zip Web Assets
+        run: zip -r WaterParty.Web.zip dist/*
+      - uses: actions/upload-artifact@v4
+        with: { name: web-dist, path: dist/, retention-days: 7 }
+      - uses: actions/upload-artifact@v4
+        with: { name: web-zip, path: WaterParty.Web.zip, retention-days: 7 }
+
+  # -- ANDROID BUILD -- (Release APK + AAB)
+  android-build:
+    name: Build Android (Release)
+    needs: web-build
+    runs-on: ubuntu-latest
+    environment: ENV
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with: { bun-version: 'latest' }
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with: { distribution: 'temurin', java-version: '21' }
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            android/.gradle
+          key: ${{ runner.os }}-gradle-${{ hashFiles('android/**/*.gradle*', 'android/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - run: bun install --frozen-lockfile
+      - uses: actions/download-artifact@v4
+        with: { name: web-dist, path: dist/ }
+      - name: Decode Keystore (if configured)
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            # Strip newlines/spaces from base64 before decoding
+            CLEANED="$(echo "$KEYSTORE_BASE64" | tr -d '\n\r ')"
+            echo "$CLEANED" | base64 -d > android/app/waterparty-release.keystore 2>/dev/null
+            if [ -s android/app/waterparty-release.keystore ]; then
+              BYTES="$(wc -c < android/app/waterparty-release.keystore)"
+              echo "Keystore decoded successfully ($BYTES bytes)"
+            else
+              echo "Failed to decode keystore - invalid base64 content?"
+            fi
+          else
+            echo "KEYSTORE_BASE64 secret is empty - release builds will use debug signing"
+          fi
+      - run: |
+          bunx cap add android || true
+          bunx cap sync android
+      - name: Build Release APK
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          cd android
+          chmod +x ./gradlew
+          # If the release keystore was decoded, use it for signing.
+          # Otherwise, fall back to debug signing so the build always succeeds.
+          if [ ! -f app/waterparty-release.keystore ]; then
+            echo "Release keystore not found — using debug signing for release build"
+            sed -i 's/signingConfig signingConfigs.release/signingConfig signingConfigs.debug/' app/build.gradle
+          fi
+          echo "Building release APK..."
+          ./gradlew assembleRelease
+          mv app/build/outputs/apk/release/app-release.apk ../WaterParty.Android.Release.apk
+          echo "Release APK built successfully"
+      - name: Build Release AAB
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          cd android
+          # sed already ran from the APK step (same directory, same condition)
+          # If keystore doesn't exist, signingConfig was already patched to debug
+          echo "Building release AAB..."
+          ./gradlew bundleRelease
+          mv app/build/outputs/bundle/release/app-release.aab ../WaterParty.Android.aab
+          echo "Release AAB built successfully"
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with: { name: android-release-apk, path: WaterParty.Android.Release.apk, retention-days: 7 }
+      - name: Upload Release AAB
+        uses: actions/upload-artifact@v4
+        with: { name: android-release-aab, path: WaterParty.Android.aab, retention-days: 7 }
+
+  # -- IOS CAPACITOR BUILD --
+  ios-build:
+    name: Build iOS App
+    needs: web-build
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with: { bun-version: 'latest' }
+      - run: bun install --frozen-lockfile
+      - uses: actions/download-artifact@v4
+        with: { name: web-dist, path: dist/ }
+      - run: |
+          bunx cap add ios || true
+          bunx cap sync ios
+          bunx cap update ios
+      - name: Build iOS App (Simulator Debug)
+        run: |
+          cd ios/App
+          xcodebuild -project "App.xcodeproj" -scheme "App" -configuration Debug -sdk iphonesimulator build -derivedDataPath build
+          zip -r ../../WaterParty.Ios.zip build/Build/Products/Debug-iphonesimulator/App.app
+      - uses: actions/upload-artifact@v4
+        with: { name: ios-simulator-app, path: WaterParty.Ios.zip, retention-days: 7 }
+
+  release:
+    name: Create GitHub Release
+    needs: [android-build, ios-build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with: { path: artifacts/ }
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "continuous-build-${{ github.sha }}"
+          name: "Continuous Build ${{ github.sha }}"
+          files: |
+            artifacts/android-release-apk/WaterParty.Android.Release.apk
+            artifacts/android-release-aab/WaterParty.Android.aab
+            artifacts/ios-simulator-app/WaterParty.Ios.zip
+            artifacts/web-zip/WaterParty.Web.zip
+          body: |
+            # 🌊 WaterParty - Mobile Build
+
+            ## 📱 Artifacts
+
+            ### 🤖 Android (Release APK & AAB)
+            *   **Build:** Release — includes ProGuard optimization & resource shrinking
+            *   **APK:** Direct install on any device
+            *   **AAB:** For Google Play Console upload
+            *   *(Signed with your keystore if `KEYSTORE_BASE64` secret is configured; otherwise uses debug signing)*
+
+            ### 🍎 iOS (Simulator)
+            *   **Platform:** iOS
+            *   **Build:** Simulator-Debug
+            *   **Usage:** Download `.app` folder, unzip, drag & drop onto Xcode Simulator
+
+            ---
+
+            ## 🛠 Build Metadata
+            *   **Commit SHA:** `${{ github.sha }}`
+            *   **Build Timestamp:** ${{ github.event.head_commit.timestamp }}
+            *   **CI Pipeline:** [View Build Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          token: ${{ secrets.GITHUB_TOKEN }}

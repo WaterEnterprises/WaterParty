@@ -1,0 +1,33 @@
+Olá! 👋
+
+Meu nome é John Victor, fundador da Water Enterprises e criador do WaterParty — um aplicativo inovador de descoberta social de festas e eventos, no estilo Tinder, com pagamentos integrados (gorjetas + crowdfunding) e detecção automática de moeda via GPS.
+
+Estamos construindo a camada de descoberta da vida noturna — um app que unifica o que hoje exige 4+ aplicativos diferentes (Instagram, WhatsApp, Uber, e sistemas de pagamento) em uma única experiência fluida: deslize → confirme presença → converse → pague.
+
+🔗 **Landing Page da Water Enterprises:**
+https://water-enterprises-landing.onrender.com/
+
+📱 **Aplicativo WaterParty (funcional):**
+https://waterparty-react-14hr.onrender.com/
+
+💻 **Código-fonte (GitHub):**
+https://github.com/StellariumFoundation/WaterParty-React
+
+**Diferenciais técnicos:**
+- Front-end: React 19 + TypeScript + Vite
+- Back-end: Bun + Turso (SQLite edge)
+- Pagamentos: Stripe Connect (gorjetas + crowdfunding)
+- Tempo real: WebSockets para chat e notificações
+- Detecção automática de moeda via GPS
+- Cross-platform: iOS + Android (Capacitor)
+- MVP funcional em produção
+
+**Oportunidade:**
+A indústria global de vida noturna movimenta ~US$150B anuais, mas ainda não tem uma plataforma de descoberta dominante. WaterParty está lançando primeiro em Recife — um mercado de 4M de pessoas com 100K+ universitários — para provar densidade antes de expandir para as 100+ cidades da América Latina.
+
+Estamos abertos a conversas sobre investimento, parcerias estratégicas, ou aceleração. Adoraria marcar uma call para apresentar a visão completa e o roadmap.
+
+Atenciosamente,
+John Victor
+Fundador, Water Enterprises / WaterParty
+water.enterprises.org@gmail.com

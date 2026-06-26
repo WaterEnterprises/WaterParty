@@ -1,0 +1,18 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+nul
+.env*
+!.env.example
+
+# App icons in platform directories (tracked in git)
+!ios/App/App/Assets.xcassets/**/*.png
+!android/app/src/main/res/**/*.png
+!public/*.png
+android/.kotlin/sessions/kotlin-compiler-17469606583307562729.salive
+android/.kotlin/sessions/kotlin-compiler-17469606583307562729.salive
+nul.terabox.uploading.cfg
+*.cfg

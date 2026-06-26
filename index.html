@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#090A10" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>WaterParty</title>
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <link rel="shortcut icon" type="image/png" href="/icon.png" />
+    <link rel="apple-touch-icon" href="/icon.png" />
+    <style>
+      /* Loading skeleton shown while JS boots */
+      #root:empty::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100dvh;
+        background: linear-gradient(180deg, #121320 0%, #0A0B14 100%);
+        animation: pulse 1.5s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      /* Error overlay — visible only on JS errors */
+      #error-overlay {
+        position: fixed;
+        inset: 0;
+        background: #0A0B14;
+        color: #e0e0e0;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 13px;
+        line-height: 1.6;
+        padding: 24px;
+        overflow: auto;
+        z-index: 99999;
+        display: none;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      #error-overlay.visible { display: block; }
+      #error-overlay .err-title {
+        color: #FF3B5C;
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: 12px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      #error-overlay .err-msg { color: #ff8888; margin-bottom: 8px; }
+      #error-overlay .err-stack { color: #888; font-size: 12px; opacity: 0.8; }
+      #error-overlay .err-url { color: #00D2FF; font-size: 11px; margin-top: 8px; opacity: 0.7; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="error-overlay">
+      <div class="err-title">Runtime Error</div>
+      <div class="err-msg" id="err-msg"></div>
+      <div class="err-stack" id="err-stack"></div>
+      <div class="err-url" id="err-url"></div>
+    </div>
+    <link rel="stylesheet" href="/assets/index.css" />
+    <script type="module">
+      const overlay = document.getElementById('error-overlay');
+      const errMsg = document.getElementById('err-msg');
+      const errStack = document.getElementById('err-stack');
+      const errUrl = document.getElementById('err-url');
+
+      function showError(msg, stack, url) {
+        errMsg.textContent = msg;
+        errStack.textContent = stack || '';
+        errUrl.textContent = url ? 'at ' + url : '';
+        overlay.classList.add('visible');
+        document.getElementById('root').style.display = 'none';
+      }
+
+      window.onerror = function(msg, url, line, col, err) {
+        showError(msg, err?.stack, url + ':' + line + ':' + col);
+      };
+
+      window.addEventListener('unhandledrejection', function(e) {
+        const reason = e.reason;
+        const msg = reason?.message || String(reason);
+        const stack = reason?.stack || '';
+        showError('Unhandled Promise Rejection: ' + msg, stack, '');
+      });
+    </script>
+    <script type="module" src="/assets/main.js"></script>
+  </body>
+</html>

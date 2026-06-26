@@ -1,0 +1,15 @@
+export const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "";
+export const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || "";
+export const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || "";
+export const STRIPE_PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY || "";
+export const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || "";
+export const PLATFORM_FEE_PERCENT = 6;
+export const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+export const TURSO_DATABASE_URL = process.env.TURSO_DATABASE_URL || "";
+export const TURSO_AUTH_TOKEN = process.env.TURSO_AUTH_TOKEN || "";
+export const PORT = Number(process.env.PORT) || 3000;
+export const NODE_ENV = process.env.NODE_ENV || "development";
+export const PARTIES_CACHE_TTL_MS = 30_000;
+export const FIREBASE_SERVICE_ACCOUNT_JSON = process.env.FIREBASE_SERVICE_ACCOUNT_JSON || "";
+export const APP_URL = process.env.APP_URL || "http://localhost:3000";
+export const ADMIN_USER_IDS = (process.env.ADMIN_USER_IDS || "").split(",").map(s => s.trim()).filter(Boolean);
