@@ -225,7 +225,7 @@ export function AuthPage() {
   // ── Loading screen ──
   if (loading && loadStage !== 'auth') {
     return (
-      <div className="min-h-[100dvh] w-full flex flex-col items-center justify-center p-6 text-text-primary absolute inset-0 z-[100] overflow-hidden bg-auth">
+      <div className="min-h-[100dvh] w-full flex flex-col items-center justify-center p-6 text-text-primary absolute inset-0 z-[100] overflow-hidden bg-auth box-border pt-[var(--safe-area-inset-top,env(safe-area-inset-top,0px))]">
         <div className="absolute inset-0 bg-auth/85 backdrop-blur-[10px] z-0" />
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-accent/10 blur-[120px] pointer-events-none animate-pulse z-0" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-brand-secondary/10 blur-[120px] pointer-events-none animate-pulse z-0" />
@@ -251,7 +251,7 @@ export function AuthPage() {
 
   // ── Main auth form ──
   return (
-    <div className="min-h-[100dvh] w-full flex flex-col items-center justify-center p-6 text-text-primary absolute inset-0 z-[100] overflow-x-hidden overflow-y-auto bg-auth">
+    <div className="min-h-[100dvh] w-full flex flex-col items-center justify-center p-6 text-text-primary absolute inset-0 z-[100] overflow-x-hidden overflow-y-auto bg-auth box-border pt-[var(--safe-area-inset-top,env(safe-area-inset-top,0px))]">
       <div className="absolute inset-0 bg-auth/85 backdrop-blur-[10px] z-0" />
       <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-accent/10 blur-[120px] pointer-events-none animate-pulse z-0" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-brand-secondary/10 blur-[120px] pointer-events-none animate-pulse z-0" />

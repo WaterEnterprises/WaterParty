@@ -5,7 +5,7 @@ export function PrivacyPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen w-full bg-base text-text-bright font-sans overflow-y-auto">
+    <div className="min-h-screen w-full bg-base text-text-bright font-sans overflow-y-auto box-border pt-[var(--safe-area-inset-top,env(safe-area-inset-top,0px))]">
       {/* Header */}
       <div className="sticky top-0 z-20 bg-base/95 backdrop-blur-xl border-b border-border-default">
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-center gap-3">

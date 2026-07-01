@@ -64,7 +64,7 @@ function MainApp() {
   if (!user) return <AuthPage />;
 
   return (
-    <div className="bg-base h-[100dvh] w-full font-sans text-text-primary flex flex-col overflow-hidden selection:bg-[#00D2FF]/30">
+    <div className="bg-base h-[100dvh] w-full font-sans text-text-primary flex flex-col overflow-hidden selection:bg-[#00D2FF]/30 box-border safe-area-top safe-area-bottom">
       
       {/* Main Panel */}
       <div className="flex-1 relative flex flex-col min-w-0 h-full overflow-hidden">
@@ -85,7 +85,7 @@ function MainApp() {
         
         {/* Bottom Navigation — safe-area-aware padding for notched devices */}
         {!location.pathname.startsWith('/chat/') && (
-          <div className="fixed bottom-0 left-0 w-full h-[64px] z-[100]" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+          <div className="fixed bottom-0 left-0 w-full h-[64px] z-[100]" style={{ paddingBottom: 'var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px))' }}>
             <BottomNav />
           </div>
         )}

@@ -40,7 +40,7 @@ function Lightbox({ visible, type, url, onClose, onDownload, headerText }: {
 
   return (
     <div ref={backdropRef} onClick={onClose} className="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex flex-col items-center justify-center p-4 cursor-zoom-out">
-      <div ref={headerRef} onClick={(e) => e.stopPropagation()} className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-black/60 to-transparent flex items-center justify-between px-6 pointer-events-auto">
+      <div ref={headerRef} onClick={(e) => e.stopPropagation()} className="absolute top-0 inset-x-0 pt-[var(--safe-area-inset-top,env(safe-area-inset-top,0px))] bg-gradient-to-b from-black/60 to-transparent flex items-center justify-between px-6 pointer-events-auto h-16">
         <button onClick={onClose} className="w-10 h-10 rounded-full flex items-center justify-center bg-black/40 text-text-secondary hover:text-text-primary hover:bg-black/60 transition-all cursor-pointer border border-border-default active:scale-95"><X size={18} /></button>
         <span className="text-xs font-black uppercase tracking-[0.2em] text-text-muted">{headerText}</span>
         <button onClick={() => url && onDownload(url)} className="w-10 h-10 rounded-full flex items-center justify-center bg-brand-accent/20 text-brand-accent hover:text-text-primary hover:bg-brand-accent transition-all cursor-pointer border border-brand-accent/25 active:scale-95" title="Save Shared Media"><Download size={18} /></button>

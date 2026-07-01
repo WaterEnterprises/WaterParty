@@ -549,7 +549,7 @@ export function SwipePage() {
         )}
 
       {/* Header - Floating over the cards */}
-      <header className="absolute left-0 right-0 px-6 pt-8 pb-4 flex justify-between items-center z-40 bg-gradient-to-b from-black/60 to-transparent pointer-events-none top-0">
+      <header className="fixed left-0 right-0 px-6 pt-[calc(var(--safe-area-inset-top,env(safe-area-inset-top,0px))+0.75rem)] pb-4 flex justify-between items-center z-40 bg-gradient-to-b from-black/60 to-transparent pointer-events-none top-0">
         <div className="text-2xl font-black bg-gradient-to-r from-brand-primary to-brand-secondary text-transparent bg-clip-text tracking-tighter pointer-events-auto">
           WaterParty
         </div>

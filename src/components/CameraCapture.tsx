@@ -220,7 +220,7 @@ export function CameraCapture({ open, onClose, onCapture }: CameraCaptureProps) 
           className="fixed inset-0 z-[200] bg-black flex flex-col"
         >
           {/* ── Header ──────────────────────────────────────────── */}
-          <div className="absolute top-0 inset-x-0 z-10 flex items-center justify-between px-4 pt-12 pb-4 bg-gradient-to-b from-black/60 to-transparent pointer-events-none">
+          <div className="absolute top-0 inset-x-0 z-10 flex items-center justify-between px-4 pt-[var(--safe-area-inset-top,env(safe-area-inset-top,0px))] pb-4 bg-gradient-to-b from-black/60 to-transparent pointer-events-none">
             <button
               type="button"
               onClick={handleClose}

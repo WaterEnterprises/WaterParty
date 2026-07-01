@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { SystemBars, SystemBarsStyle } from "@capacitor/core";
 
 type Theme = "dark" | "light";
 
@@ -45,6 +46,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     apply(theme);
   }, []);
+
+  // Sync system bar icon style with theme (edge-to-edge: icons must contrast with bg)
+  useEffect(() => {
+    try {
+      SystemBars.setStyle({ style: theme === "dark" ? SystemBarsStyle.Dark : SystemBarsStyle.Light });
+    } catch {}
+  }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, toggle, setTheme }}>
