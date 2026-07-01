@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { gsap } from "../lib/gsap";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "../lib/utils";
 import { getAssetUrl } from "../lib/constants";
@@ -87,6 +87,18 @@ export function Carousel({
     return () => clearInterval(timer);
   }, [autoPlay, hasMultiple, next]);
 
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // GSAP crossfade on image index change
+  useEffect(() => {
+    if (imgRef.current) {
+      gsap.fromTo(imgRef.current,
+        { opacity: 0, scale: 1.05 },
+        { opacity: 1, scale: 1, duration: 0.25, ease: "easeInOut" }
+      );
+    }
+  }, [index]);
+
   // Touch handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -128,22 +140,17 @@ export function Carousel({
     >
       {/* Image with transitions */}
       <div className={cn("w-full", aspectRatio !== "auto" ? "aspect-[9/16]" : "h-full")} style={aspectRatio && aspectRatio !== "auto" && aspectRatio !== "9/16" ? { aspectRatio } as React.CSSProperties : undefined}>
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={index}
-            src={getAssetUrl(safePhotos[index])}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className={cn(
-              "absolute inset-0 w-full h-full",
-              contain ? "object-contain" : "object-cover",
-            )}
-            draggable={false}
-            referrerPolicy="no-referrer"
-          />
-        </AnimatePresence>
+        <img
+          key={index}
+          ref={imgRef}
+          src={getAssetUrl(safePhotos[index])}
+          className={cn(
+            "absolute inset-0 w-full h-full",
+            contain ? "object-contain" : "object-cover",
+          )}
+          draggable={false}
+          referrerPolicy="no-referrer"
+        />
       </div>
 
       {/* Overlay gradient */}

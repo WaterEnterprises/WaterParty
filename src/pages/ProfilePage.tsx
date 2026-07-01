@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { User as UserIcon, Edit, Save, Camera, Crop, X, BarChart3, Wallet, ImagePlus, Loader, Sun, Moon, AlertTriangle, Trash2 } from 'lucide-react';
+import { gsap } from '../lib/gsap';
 import { ProfileDetails } from '../components/ProfileDetails';
 import { PhotoCarousel } from '../components/PhotoCarousel';
 import { PhotoEditor } from '../components/PhotoEditor';
@@ -541,10 +541,7 @@ export function ProfilePage() {
         <>
           <div className="fixed inset-0 bg-black/60 z-50" onClick={() => !deleting && setShowDeleteConfirm(false)} />
           <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="bg-elevated backdrop-blur-xl border border-border-default rounded-2xl shadow-2xl max-w-sm w-full p-6"
+            <div className="bg-elevated backdrop-blur-xl border border-border-default rounded-2xl shadow-2xl max-w-sm w-full p-6"
             >
               <div className="flex flex-col items-center text-center mb-6">
                 <div className="w-14 h-14 rounded-full bg-red-500/20 flex items-center justify-center mb-4">
@@ -571,7 +568,7 @@ export function ProfilePage() {
                   {deleting ? <><Loader size={16} className="animate-spin" /> DELETING...</> : <><Trash2 size={16} /> DELETE</>}
                 </button>
               </div>
-            </motion.div>
+            </div>
           </div>
         </>
       )}

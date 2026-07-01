@@ -1,4 +1,5 @@
-import { motion, AnimatePresence } from "motion/react";
+import { useRef, useEffect } from "react";
+import { gsap } from "../lib/gsap";
 import { X } from "lucide-react";
 import { cn } from "../lib/utils";
 
@@ -24,17 +25,26 @@ export function ReportUserModal({
   error, onClearError,
   success, inFlight, onSubmit,
 }: ReportUserModalProps) {
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (show && targetUser && backdropRef.current && cardRef.current) {
+      gsap.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.2 });
+      gsap.fromTo(cardRef.current, { scale: 0.95, y: 20, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 0.4, ease: "back.out(1.7)" });
+    }
+  }, [show, targetUser]);
+
   return (
-    <AnimatePresence>
+    <>
       {show && targetUser && (
-        <motion.div
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        <div
+          ref={backdropRef}
           className="fixed inset-0 bg-black/90 backdrop-blur-md z-[100] flex items-center justify-center p-4 cursor-default"
           onClick={() => { if (!inFlight && !success) onClose(); }}
         >
-          <motion.div
-            initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
-            transition={{ type: "spring", duration: 0.4 }}
+          <div
+            ref={cardRef}
             className="w-full max-w-md bg-overlay border border-border-default rounded-3xl p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden relative"
             onClick={(e) => e.stopPropagation()}
           >
@@ -90,9 +100,9 @@ export function ReportUserModal({
                 </div>
               </div>
             )}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }

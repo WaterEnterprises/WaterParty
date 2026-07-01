@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { gsap } from "../lib/gsap";
 import { X, RotateCw, Check } from "lucide-react";
 import { cn, uploadImage } from "../lib/utils";
 
@@ -319,13 +319,19 @@ export function PhotoEditor({
     }
   };
 
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (overlayRef.current) {
+      gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.2 });
+    }
+  }, [isOpen, imageSrc]);
+
   return (
-    <AnimatePresence>
+    <>
       {isOpen && imageSrc && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+        <div
+          ref={overlayRef}
           className="fixed inset-0 bg-black/95 backdrop-blur-lg z-[200] flex flex-col"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
@@ -407,8 +413,8 @@ export function PhotoEditor({
           <div className="pb-4 text-center text-micro font-black uppercase tracking-[0.25em] text-text-faint">
             Drag to reposition • Pinch to zoom • Double-tap to zoom in/out
           </div>
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }

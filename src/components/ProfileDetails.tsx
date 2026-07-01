@@ -1,5 +1,6 @@
+import { useEffect, useRef } from 'react';
 import { Mail, Briefcase, GraduationCap } from 'lucide-react';
-import { motion } from 'motion/react';
+import { gsap } from '../lib/gsap';
 import { InstagramIcon, XIcon, VkIcon, TelegramIcon, WhatsAppIcon, FacebookIcon, getSocialColor } from './SocialIcons';
 import { PhotoCarousel } from './PhotoCarousel';
 import { cn } from '../lib/utils';
@@ -65,6 +66,21 @@ const sectionVariants = {
   }),
 };
 
+function useStaggerAnim(ref: React.RefObject<HTMLDivElement | null>, deps: any[]) {
+  useEffect(() => {
+    if (ref.current) {
+      const ctx = gsap.context(() => {
+        gsap.fromTo(
+          ref.current!.children,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, stagger: 0.08, duration: 0.4, ease: "power2.out" }
+        );
+      }, ref);
+      return () => ctx.revert();
+    }
+  }, deps);
+}
+
 /**
  * Unified profile display component that renders:
  * 1. PhotoCarousel (user photos)
@@ -92,8 +108,8 @@ export function ProfileDetails({
   const hasWork = !!(user.JobTitle || user.Company);
   const hasEducation = !!(user.School || user.Degree);
   const displayTrustScore = trustScore ?? (user.TrustScore ?? 100);
-
-  let animIdx = 0;
+  const sectionsRef = useRef<HTMLDivElement>(null);
+  useStaggerAnim(sectionsRef, [user.ID]);
 
   return (
     <div className={cn('flex flex-col overflow-y-auto scrollbar-hide', className)}>
@@ -140,33 +156,21 @@ export function ProfileDetails({
         />
       )}
 
-      <div className="px-6 -mt-4 relative z-10 pb-8">
+      <div ref={sectionsRef} className="px-6 -mt-4 relative z-10 pb-8">
         {/* Bio */}
         {user.Bio && (
-          <motion.div
-            custom={animIdx++}
-            initial="hidden"
-            animate="visible"
-            variants={sectionVariants}
-            className="mb-5 text-center w-full bg-card border border-border-default rounded-2xl px-5 py-4"
-          >
+          <div className="mb-5 text-center w-full bg-card border border-border-default rounded-2xl px-5 py-4">
             <h3 className="text-xs font-black text-text-muted tracking-[0.2em] mb-2 uppercase">
               About Me
             </h3>
             <p className="text-sm text-text-primary leading-relaxed font-medium">{user.Bio}</p>
-          </motion.div>
+          </div>
         )}
 
 
         {/* Social Links */}
         {socials.length > 0 && (
-          <motion.div
-            custom={animIdx++}
-            initial="hidden"
-            animate="visible"
-            variants={sectionVariants}
-            className="mb-5 w-full"
-          >
+          <div className="mb-5 w-full">
             <h3 className="text-xs font-black text-text-muted tracking-[0.2em] mb-3 uppercase text-center">
               Social Media
             </h3>
@@ -194,18 +198,12 @@ export function ProfileDetails({
                 );
               })}
             </div>
-          </motion.div>
+          </div>
         )}
 
         {/* Work & Education */}
         {(hasWork || hasEducation) && (
-          <motion.div
-            custom={animIdx++}
-            initial="hidden"
-            animate="visible"
-            variants={sectionVariants}
-            className="mb-5 w-full"
-          >
+          <div className="mb-5 w-full">
             <h3 className="text-xs font-black text-text-muted tracking-[0.2em] mb-3 uppercase text-center">
               Work & Education
             </h3>
@@ -227,19 +225,14 @@ export function ProfileDetails({
                 </div>
               )}
             </div>
-          </motion.div>
+          </div>
         )}
 
         {/* Actions slot */}
         {actions && (
-          <motion.div
-            custom={animIdx++}
-            initial="hidden"
-            animate="visible"
-            variants={sectionVariants}
-          >
+          <div>
             {actions}
-          </motion.div>
+          </div>
         )}
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "motion/react";
+import { gsap } from "../lib/gsap";
 import {
   X,
   Check,
@@ -87,37 +87,21 @@ const SwipeCard = React.memo(function SwipeCard({
   const exitX = swipeDir === "left" ? -300 : swipeDir === "right" ? 300 : 0;
   const exitRotate = swipeDir === "left" ? -15 : swipeDir === "right" ? 15 : 0;
 
+  const cardRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (cardRef.current) {
+      gsap.fromTo(cardRef.current, { scale: 0.95, y: 20, opacity: 0 }, { scale: isTop ? 1 : 0.95 - (totalCount - 1 - index) * 0.05, y: isTop ? 0 : (totalCount - 1 - index) * 15, opacity: 1, duration: 0.3, ease: "power2.out" });
+    }
+  }, []);
+
   return (
-    <motion.div
+    <div ref={cardRef}
       className={cn(
         "absolute inset-0 overflow-hidden bg-[#050505]",
         !isTop && "pointer-events-none",
       )}
       style={{ zIndex: index }}
-      initial={{ scale: 0.95, y: 20, opacity: 0 }}
-      animate={{
-        scale: isTop ? 1 : 0.95 - (totalCount - 1 - index) * 0.05,
-        y: isTop ? 0 : (totalCount - 1 - index) * 15,
-        opacity: 1,
-      }}
-      exit={{
-        x: exitX,
-        y: -20,
-        opacity: 0,
-        rotate: exitRotate,
-        transition: { duration: 0.2, ease: "easeIn" },
-      }}
-      drag={isTop ? "x" : false}
-      dragConstraints={{ left: 0, right: 0 }}
-      onDragEnd={(e, { offset, velocity }) => {
-        if (!isTop) return;
-        const swipeThreshold = 100;
-        if (offset.x > swipeThreshold || velocity.x > 500) {
-          onSwipe("right", party.ID);
-        } else if (offset.x < -swipeThreshold || velocity.x < -500) {
-          onSwipe("left", party.ID);
-        }
-      }}
+      onPointerDown={(e) => { if (!isTop) return; const el = e.currentTarget; const startX = e.clientX; const onMove = (ev: PointerEvent) => { const dx = ev.clientX - startX; el.style.transform = `translate3d(${dx}px, 0, 0) rotate(${dx * 0.05}deg)`; }; const onUp = (ev: PointerEvent) => { window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp); const dx = ev.clientX - startX; if (dx > 100 || dx < -100) { gsap.to(el, { x: dx > 0 ? 300 : -300, y: -20, opacity: 0, rotate: dx > 0 ? 15 : -15, duration: 0.2, ease: "easeIn", onComplete: () => onSwipe(dx > 0 ? "right" : "left", party.ID) }); } else { gsap.to(el, { x: 0, y: isTop ? 0 : (totalCount - 1 - index) * 15, scale: isTop ? 1 : 0.95 - (totalCount - 1 - index) * 0.05, rotate: 0, duration: 0.3, ease: "power2.out" }); } }; window.addEventListener('pointermove', onMove); window.addEventListener('pointerup', onUp); }}
     >
       {/* GPU-accelerated container for smooth mobile animations */}
       <div className="absolute inset-0 bg-[#111] z-0 pointer-events-none" style={{ transform: 'translateZ(0)', willChange: 'transform' }}>
@@ -258,7 +242,7 @@ const SwipeCard = React.memo(function SwipeCard({
           </button>
         </div>
       )}
-    </motion.div>
+    </div>
   );
 });
 
@@ -492,25 +476,42 @@ export function SwipePage() {
     });
   }, [user?.ID, fetchUserProfile]);
 
+  const locBackdropRef = useRef<HTMLDivElement>(null);
+  const locCardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (showLocationPrompt && locBackdropRef.current && locCardRef.current) {
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline();
+        tl.fromTo(locBackdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.2 });
+        tl.fromTo(locCardRef.current, { scale: 0.85, opacity: 0, y: 20 }, { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.7)" }, "-=0.1");
+      });
+      return () => ctx.revert();
+    }
+  }, [showLocationPrompt]);
+
+  const partyOverlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (selectedParty && partyOverlayRef.current) {
+      gsap.fromTo(partyOverlayRef.current, { y: "100%" }, { y: 0, duration: 0.4, ease: "power3.out" });
+    }
+  }, [selectedParty]);
+
+  const userOverlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (selectedUser && userOverlayRef.current) {
+      gsap.fromTo(userOverlayRef.current, { y: "100%" }, { y: 0, duration: 0.35, ease: "power3.out" });
+    }
+  }, [selectedUser]);
+
   return (
     <div className="relative h-full w-full flex flex-col bg-[#050505] overflow-hidden">
       {/* Location prompt modal — full-screen overlay to guide user to enable GPS */}
-      <AnimatePresence>
         {showLocationPrompt && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="absolute inset-0 z-[80] flex items-center justify-center bg-black/70 backdrop-blur-sm"
-          >
-            <motion.div
-              initial={{ scale: 0.85, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.85, opacity: 0, y: 20 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-              className="bg-card border border-border-default rounded-3xl p-8 mx-6 max-w-sm w-full shadow-2xl"
-            >
+          <div ref={locBackdropRef} className="absolute inset-0 z-[80] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+            <div ref={locCardRef} className="bg-card border border-border-default rounded-3xl p-8 mx-6 max-w-sm w-full shadow-2xl">
               <div className="flex flex-col items-center text-center gap-5">
                 {/* Icon */}
                 <div className="w-16 h-16 rounded-2xl bg-brand-accent/15 flex items-center justify-center">
@@ -543,10 +544,9 @@ export function SwipePage() {
                   </button>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
 
       {/* Header - Floating over the cards */}
       <header className="absolute left-0 right-0 px-6 pt-8 pb-4 flex justify-between items-center z-40 bg-gradient-to-b from-black/60 to-transparent pointer-events-none top-0">
@@ -575,8 +575,7 @@ export function SwipePage() {
               </div>
             </div>
           ) : (
-            <AnimatePresence>
-              {swipeFeed.map((party, index) => (
+              swipeFeed.map((party, index) => (
                 <SwipeCard
                   key={party.ID}
                   party={party}
@@ -593,22 +592,14 @@ export function SwipePage() {
                   onUserClick={handleUserClickCb}
                   onOpenDetail={handleOpenDetail}
                 />
-              ))}
-            </AnimatePresence>
+              ))
           )}
         </div>
       </div>
 
       {/* Party Detail Overlay */}
-      <AnimatePresence>
         {selectedParty && (
-          <motion.div
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="absolute inset-0 z-[50] flex items-center justify-center overflow-hidden bg-black"
-          >
+          <div ref={partyOverlayRef} className="absolute inset-0 z-[50] flex items-center justify-center overflow-hidden bg-black">
             <div className="w-full h-full bg-overlay overflow-y-auto scrollbar-hide flex flex-col relative">
               {selectedParty?.PartyPhotos?.length > 0 ? (
                 <PhotoCarousel
@@ -773,9 +764,8 @@ export function SwipePage() {
               </div>
             </div>
            </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
 
       {/* User Profile Loading Overlay */}
       {loadingUserProfile && !selectedUser && (
@@ -788,15 +778,8 @@ export function SwipePage() {
       )}
 
       {/* User Profile Overlay */}
-      <AnimatePresence>
         {selectedUser && (
-          <motion.div
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ type: "spring", damping: 30, stiffness: 250 }}
-            className="absolute inset-0 z-[60] flex items-center justify-center overflow-hidden bg-black"
-          >
+          <div ref={userOverlayRef} className="absolute inset-0 z-[60] flex items-center justify-center overflow-hidden bg-black">
             <div className="w-full h-full bg-overlay flex flex-col">
               {(() => {
                 const photos = Array.isArray(selectedUser.ProfilePhotos) && selectedUser.ProfilePhotos.length > 0
@@ -829,9 +812,8 @@ export function SwipePage() {
                 );
               })()}
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </div>
   );
 }

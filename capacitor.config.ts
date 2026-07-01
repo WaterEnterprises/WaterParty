@@ -16,6 +16,7 @@ server: {
     // Allow navigation to any URL (required for Stripe Connect onboarding)
     allowMixedContent: true,
     captureInput: true,
+    adjustMarginsForEdgeToEdge: "force",
   },
   ios: {
     contentInset: 'always',

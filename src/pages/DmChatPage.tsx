@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   ChevronLeft,
   Info,
 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
 import { cn } from "../lib/utils";
 import { getAssetUrl, PLACEHOLDER_IMAGE } from "../lib/constants";
 import { useStore } from "../lib/Store";
+import { gsap } from "../lib/gsap";
 import { CameraCapture } from "../components/CameraCapture";
 import { ChatLightbox } from "../components/ChatLightbox";
 import { ReportUserModal } from "../components/ReportUserModal";
@@ -91,6 +91,21 @@ export function DmChatPage() {
     const da = new Date(a), db = new Date(b);
     return da.getFullYear() === db.getFullYear() && da.getMonth() === db.getMonth() && da.getDate() === db.getDate();
   }
+
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const userOverlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (showInfo && otherUser && sidebarRef.current) {
+      gsap.fromTo(sidebarRef.current, { x: "100%" }, { x: 0, duration: 0.35, ease: "power3.inOut" });
+    }
+  }, [showInfo, otherUser]);
+
+  useEffect(() => {
+    if (!!selectedUser && userOverlayRef.current) {
+      gsap.fromTo(userOverlayRef.current, { y: "100%" }, { y: 0, duration: 0.35, ease: "power3.out" });
+    }
+  }, [selectedUser]);
 
   // ── Message bubbles ───────────────────────────────────────────
   const renderMessageBubbles = () => (
@@ -243,46 +258,34 @@ export function DmChatPage() {
         </div>
 
         {/* DM Info Sidebar */}
-        <AnimatePresence>
-          {showInfo && otherUser && (
-            <motion.div
-              initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 250 }}
-              className="absolute inset-0 bg-overlay z-20 border-l border-border-default flex flex-col overflow-y-auto scrollbar-hide"
-            >
-              {renderDmSidebar()}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {showInfo && otherUser && (
+          <div ref={sidebarRef} className="absolute inset-0 bg-overlay z-20 border-l border-border-default flex flex-col overflow-y-auto scrollbar-hide">
+            {renderDmSidebar()}
+          </div>
+        )}
 
         {/* User Profile Overlay */}
-        <AnimatePresence>
-          {!!selectedUser && (
-            <motion.div
-              initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 250 }}
-              className="absolute inset-0 bg-overlay z-[60] flex flex-col overflow-y-auto scrollbar-hide"
-            >
-              <ProfileDetails
-                user={selectedUser}
-                photos={(selectedUser.ProfilePhotos?.length > 0 ? selectedUser.ProfilePhotos : [selectedUser.Thumbnail || ""]).filter(Boolean)}
-                currentPhotoIndex={selectedUserPhotoIndex}
-                onPhotoIndexChange={setSelectedUserPhotoIndex}
-                onClose={() => { setSelectedUser(null); setSelectedUserPhotoIndex(0); }}
-                closeIcon="back"
-                trustScore={selectedUser.TrustScore}
-                actions={
-                  <div className="flex flex-col items-center w-full pt-4">
-                    <div className="pt-6 border-t border-border-default uppercase w-full max-w-sm">
-                      <button onClick={() => { setReportReason(""); setReportDetails(""); setReportError(null); setReportSuccess(false); setReportTargetUser(selectedUser); setShowReportModal(true); }}
-                        className="w-full py-4 text-xs font-black text-red-500 hover:text-red-400 transition-colors tracking-widest text-center cursor-pointer">REPORT PROFILE</button>
-                    </div>
+        {!!selectedUser && (
+          <div ref={userOverlayRef} className="absolute inset-0 bg-overlay z-[60] flex flex-col overflow-y-auto scrollbar-hide">
+            <ProfileDetails
+              user={selectedUser}
+              photos={(selectedUser.ProfilePhotos?.length > 0 ? selectedUser.ProfilePhotos : [selectedUser.Thumbnail || ""]).filter(Boolean)}
+              currentPhotoIndex={selectedUserPhotoIndex}
+              onPhotoIndexChange={setSelectedUserPhotoIndex}
+              onClose={() => { setSelectedUser(null); setSelectedUserPhotoIndex(0); }}
+              closeIcon="back"
+              trustScore={selectedUser.TrustScore}
+              actions={
+                <div className="flex flex-col items-center w-full pt-4">
+                  <div className="pt-6 border-t border-border-default uppercase w-full max-w-sm">
+                    <button onClick={() => { setReportReason(""); setReportDetails(""); setReportError(null); setReportSuccess(false); setReportTargetUser(selectedUser); setShowReportModal(true); }}
+                      className="w-full py-4 text-xs font-black text-red-500 hover:text-red-400 transition-colors tracking-widest text-center cursor-pointer">REPORT PROFILE</button>
                   </div>
-                }
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+                </div>
+              }
+            />
+          </div>
+        )}
 
         {/* Lightbox */}
         <ChatLightbox

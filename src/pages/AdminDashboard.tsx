@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, DollarSign, Users, PartyPopper, CreditCard, TrendingUp, Bell, Loader } from "lucide-react";
-import { motion } from "motion/react";
 import { cn } from "../lib/utils";
 import { API_BASE, fetchWithAuth } from "../lib/constants";
 
@@ -239,16 +238,12 @@ function TestPushButton() {
         )}
       </button>
       {message && (
-        <motion.p
-          initial={{ opacity: 0, y: -4 }}
-          animate={{ opacity: 1, y: 0 }}
-          className={cn(
-            'text-micro font-bold uppercase tracking-widest text-center mt-1.5',
-            status === 'sent' ? 'text-green-400' : 'text-red-400',
-          )}
-        >
+        <p className={cn(
+          'text-micro font-bold uppercase tracking-widest text-center mt-1.5',
+          status === 'sent' ? 'text-green-400' : 'text-red-400',
+        )}>
           {message}
-        </motion.p>
+        </p>
       )}
     </div>
   );

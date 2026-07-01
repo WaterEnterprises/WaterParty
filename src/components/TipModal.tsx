@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
+import { gsap } from "../lib/gsap";
 import { X, Send, Loader, Check, Wallet, CreditCard, Trash2 } from "lucide-react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
@@ -345,23 +345,40 @@ export function TipModal({
   };
 
   const getDisplayAmount = () => customAmount || String(amount);
-  const displaySym = sym;
+
+  const outerBackdropRef = useRef<HTMLDivElement>(null);
+  const outerCardRef = useRef<HTMLDivElement>(null);
+  const stepContentRef = useRef<HTMLDivElement>(null);
+  const prevStepRef = useRef<TipStep>("amount");
+
+  useEffect(() => {
+    if (open && outerBackdropRef.current && outerCardRef.current) {
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline();
+        tl.fromTo(outerBackdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.2 });
+        tl.fromTo(outerCardRef.current, { y: "100%", opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }, "-=0.1");
+      });
+      return () => ctx.revert();
+    }
+  }, [open]);
+
+  useEffect(() => {
+    if (stepContentRef.current) {
+      gsap.fromTo(stepContentRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" });
+    }
+    prevStepRef.current = step;
+  }, [step]);
 
   return (
-    <AnimatePresence>
+    <>
       {open && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+        <div
+          ref={outerBackdropRef}
           className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm"
           onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
         >
-          <motion.div
-            initial={{ y: "100%", opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: "100%", opacity: 0 }}
-            transition={{ type: "spring", damping: 25, stiffness: 250 }}
+          <div
+            ref={outerCardRef}
             className="w-full max-w-sm bg-card border border-border-default rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
@@ -399,15 +416,9 @@ export function TipModal({
                 </div>
               </div>
 
-              <AnimatePresence mode="wait">
+              <div ref={stepContentRef}>
                 {step === "amount" && (
-                  <motion.div
-                    key="amount"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="space-y-4"
-                  >
+                  <div className="space-y-4">
                     {/* Currency selector */}
                     <div className="flex gap-1.5">
                       {["USD", "BRL", "EUR", "GBP"].map((c) => (
@@ -484,19 +495,13 @@ export function TipModal({
                       <Send size={16} className="-rotate-45" />
                       Send {sym}{getDisplayAmount()}
                     </button>
-                  </motion.div>
+                  </div>
                 )}
 
                 {step === "payment" && paymentFlow && (
-                  <motion.div
-                    key="payment"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="space-y-3"
-                  >
+                  <div className="space-y-3">
                     <p className="text-nano text-text-secondary text-center leading-relaxed">
-                      Send <strong className="text-emerald-400">{displaySym}{getDisplayAmount()}</strong> to{" "}
+                      Send <strong className="text-emerald-400">{sym}{getDisplayAmount()}</strong> to{" "}
                       <strong className="text-text-primary">{receiverName}</strong>
                     </p>
 
@@ -517,12 +522,8 @@ export function TipModal({
                               {method.brand === "visa" ? "VISA" : method.brand === "mastercard" ? "MC" : "CC"}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-micro font-bold text-text-primary">
-                                •••• {method.last4}
-                              </p>
-                              <p className="text-2xs text-text-faint font-bold uppercase tracking-wider">
-                                Expires {method.expMonth}/{method.expYear}
-                              </p>
+                              <p className="text-micro font-bold text-text-primary">•••• {method.last4}</p>
+                              <p className="text-2xs text-text-faint font-bold uppercase tracking-wider">Expires {method.expMonth}/{method.expYear}</p>
                             </div>
                             <button
                               onClick={(e) => { e.stopPropagation(); handleDeleteSavedMethod(method.id); }}
@@ -556,36 +557,26 @@ export function TipModal({
                         setSaveMethod={setSaveMethod}
                         onSuccess={handlePaymentSuccess}
                         onError={handlePaymentError}
-                        currencySymbol={displaySym}
+                        currencySymbol={sym}
                       />
                     </Elements>
-                  </motion.div>
+                  </div>
                 )}
 
                 {step === "processing" && (
-                  <motion.div
-                    key="processing"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="flex flex-col items-center gap-4 py-8"
-                  >
+                  <div className="flex flex-col items-center gap-4 py-8">
                     <Loader size={40} className="text-emerald-400 animate-spin" />
                     <p className="text-sm font-bold text-text-secondary">Setting up payment...</p>
-                  </motion.div>
+                  </div>
                 )}
 
                 {step === "success" && (
-                  <motion.div
-                    key="success"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="flex flex-col items-center gap-4 py-6"
-                  >
+                  <div className="flex flex-col items-center gap-4 py-6">
                     <div className="w-16 h-16 rounded-full bg-emerald-500/15 flex items-center justify-center">
                       <Check size={32} className="text-emerald-400" />
                     </div>
                     <div className="text-center">
-                      <p className="text-lg font-black text-text-primary">{displaySym}{getDisplayAmount()} Sent!</p>
+                      <p className="text-lg font-black text-text-primary">{sym}{getDisplayAmount()} Sent!</p>
                       <p className="text-xs text-text-muted mt-1">Money sent to {receiverName}</p>
                     </div>
                     <button
@@ -594,16 +585,11 @@ export function TipModal({
                     >
                       Done
                     </button>
-                  </motion.div>
+                  </div>
                 )}
 
                 {step === "error" && (
-                  <motion.div
-                    key="error"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="flex flex-col items-center gap-4 py-6"
-                  >
+                  <div className="flex flex-col items-center gap-4 py-6">
                     <div className="w-16 h-16 rounded-full bg-red-500/15 flex items-center justify-center">
                       <X size={32} className="text-red-400" />
                     </div>
@@ -617,13 +603,13 @@ export function TipModal({
                     >
                       Try Again
                     </button>
-                  </motion.div>
+                  </div>
                 )}
-              </AnimatePresence>
+              </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }

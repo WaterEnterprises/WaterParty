@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import { Shield, ArrowLeft, Mail } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -223,17 +222,13 @@ export function PrivacyPage() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <section>
       <h2 className="text-xs font-black text-text-primary tracking-widest uppercase mb-4 flex items-center gap-2">
         <span className="w-1 h-4 bg-brand-accent rounded-full inline-block" />
         {title}
       </h2>
       {children}
-    </motion.section>
+    </section>
   );
 }
 

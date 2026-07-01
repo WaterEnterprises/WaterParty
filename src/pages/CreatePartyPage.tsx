@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Camera, Shield, Wallet, FileText, MapPin, Calendar, Clock, Hourglass, Check, X, Sparkles, Map as MapIcon, Globe, Loader2, Search, ImagePlus, Crop } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { gsap } from '../lib/gsap';
 import { cn, compressImageForProfile, uploadImage } from '../lib/utils';
 import { PhotoEditor } from '../components/PhotoEditor';
 import { useStore } from '../lib/Store';
@@ -395,9 +395,7 @@ export function CreatePartyPage() {
 
             <div className="grid grid-cols-5 gap-1.5">
               {partyPhotos.map((photo, index) => (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                <div
                   key={index}
                   className="relative aspect-square rounded-lg overflow-hidden group shadow-sm border border-border-default cursor-pointer"
                 >
@@ -415,7 +413,7 @@ export function CreatePartyPage() {
                   >
                     <X size={8} />
                   </button>
-                </motion.div>
+                </div>
               ))}
               {partyPhotos.length < 16 && (
                 <button
@@ -611,32 +609,7 @@ export function CreatePartyPage() {
                 {showWalletInput && <Check size={10} className="text-overlay" />}
               </div>
             </button>
-            <AnimatePresence>
-              {showWalletInput && (
-                <motion.div initial={{ opacity: 0, height: 0, marginTop: 0 }} animate={{ opacity: 1, height: 'auto', marginTop: 12 }} exit={{ opacity: 0, height: 0, marginTop: 0 }} className="overflow-hidden">
-                <div className="bg-brand-accent/5 border border-brand-accent/20 rounded-2xl p-4 flex items-center gap-3">
-                    <span className="text-lg font-black text-brand-accent">{currencySymbol(crowdfundCurrency)}</span>
-                    <input 
-                      type="number" 
-                      placeholder="TARGET AMOUNT (E.G. 500)" 
-                      value={crowdfundTarget || ''} 
-                      onChange={e => setCrowdfundTarget(Number(e.target.value))}
-                      className="w-full bg-transparent border-none outline-none text-base font-black text-text-primary placeholder:text-brand-accent/20"
-                    />
-                    <select
-                      value={crowdfundCurrency}
-                      onChange={e => setCrowdfundCurrency(e.target.value)}
-                      className="bg-brand-accent/10 border border-brand-accent/20 rounded-xl px-3 py-2 text-xs font-black text-text-primary uppercase tracking-wider outline-none [color-scheme:dark]"
-                    >
-                      <option value="BRL">🇧🇷 BRL</option>
-                      <option value="USD">🇺🇸 USD</option>
-                      <option value="EUR">🇪🇺 EUR</option>
-                      <option value="GBP">🇬🇧 GBP</option>
-                    </select>
-                 </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {showWalletInput && <CrowdfundInput currencySymbol={currencySymbol} crowdfundCurrency={crowdfundCurrency} crowdfundTarget={crowdfundTarget} setCrowdfundTarget={setCrowdfundTarget} setCrowdfundCurrency={setCrowdfundCurrency} />}
           </section>
 
           {/* PARTY TYPE */}
@@ -681,6 +654,45 @@ export function CreatePartyPage() {
       {editingPhotoIndex !== null && partyPhotos[editingPhotoIndex] && (
         <PhotoEditor isOpen={true} imageSrc={partyPhotos[editingPhotoIndex]} onClose={() => setEditingPhotoIndex(null)} onSave={handleCropPhoto} aspectRatio="9:16" />
       )}
+    </div>
+  );
+}
+
+function CrowdfundInput({ currencySymbol, crowdfundCurrency, crowdfundTarget, setCrowdfundTarget, setCrowdfundCurrency }: {
+  currencySymbol: (c: string) => string;
+  crowdfundCurrency: string;
+  crowdfundTarget: number;
+  setCrowdfundTarget: (v: number) => void;
+  setCrowdfundCurrency: (v: string) => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (ref.current) {
+      gsap.fromTo(ref.current, { opacity: 0, height: 0, marginTop: 0 }, { opacity: 1, height: "auto", marginTop: 12, duration: 0.35, ease: "power3.inOut" });
+    }
+  }, []);
+  return (
+    <div ref={ref} className="overflow-hidden">
+      <div className="bg-brand-accent/5 border border-brand-accent/20 rounded-2xl p-4 flex items-center gap-3">
+        <span className="text-lg font-black text-brand-accent">{currencySymbol(crowdfundCurrency)}</span>
+        <input
+          type="number"
+          placeholder="TARGET AMOUNT (E.G. 500)"
+          value={crowdfundTarget || ''}
+          onChange={e => setCrowdfundTarget(Number(e.target.value))}
+          className="w-full bg-transparent border-none outline-none text-base font-black text-text-primary placeholder:text-brand-accent/20"
+        />
+        <select
+          value={crowdfundCurrency}
+          onChange={e => setCrowdfundCurrency(e.target.value)}
+          className="bg-brand-accent/10 border border-brand-accent/20 rounded-xl px-3 py-2 text-xs font-black text-text-primary uppercase tracking-wider outline-none [color-scheme:dark]"
+        >
+          <option value="BRL">🇧🇷 BRL</option>
+          <option value="USD">🇺🇸 USD</option>
+          <option value="EUR">🇪🇺 EUR</option>
+          <option value="GBP">🇬🇧 GBP</option>
+        </select>
+      </div>
     </div>
   );
 }

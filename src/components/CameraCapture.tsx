@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { gsap } from "../lib/gsap";
 import { X, Camera, RotateCcw, Zap, ZapOff, Check, Loader } from "lucide-react";
 import { Camera as CapacitorCamera, CameraResultType, CameraSource } from "@capacitor/camera";
 import { isCapacitor } from "../lib/constants";
@@ -199,19 +199,24 @@ export function CameraCapture({ open, onClose, onCapture }: CameraCaptureProps) 
     } catch {}
   }, [flashOn]);
 
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (overlayRef.current) {
+      gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.2 });
+    }
+  }, [open]);
+
   // Cleanup on unmount
   useEffect(() => {
     return () => { stopStream(); };
   }, [stopStream]);
 
   return (
-    <AnimatePresence>
+    <>
       {open && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
+        <div
+          ref={overlayRef}
           className="fixed inset-0 z-[200] bg-black flex flex-col"
         >
           {/* ── Header ──────────────────────────────────────────── */}
@@ -377,8 +382,8 @@ export function CameraCapture({ open, onClose, onCapture }: CameraCaptureProps) 
               </div>
             )}
           </div>
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }

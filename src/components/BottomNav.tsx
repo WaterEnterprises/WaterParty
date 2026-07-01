@@ -1,7 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Layers, MessageSquare, PartyPopper, User } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { motion } from 'motion/react';
+import { useRef, useEffect } from 'react';
+import { gsap } from '../lib/gsap';
 
 export function BottomNav() {
   const location = useLocation();
@@ -34,11 +35,7 @@ export function BottomNav() {
               className="relative p-1 rounded-full transition-colors duration-300"
             >
               {item.isNeon && isActive && (
-                <motion.div
-                  layoutId="neon-glow"
-                  className="absolute inset-0 bg-brand-primary/20 rounded-full blur-[6px]"
-                  transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                />
+                <div className="absolute inset-0 bg-brand-primary/20 rounded-full blur-[6px]" />
               )}
               <Icon
                 size={20}
